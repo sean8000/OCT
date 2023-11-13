@@ -9,13 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    public class SchoolDTO
+    internal class GradeConversionDTO
     {
         [Precision(8)]
         public int SchoolId { get; set; }
-        [StringLength(30)]
+        [StringLength(2)]
         [Unicode(false)]
-        public string SchoolName { get; set; } = null!;
+        public string LetterGrade { get; set; } = null!;
+        public decimal GradePoint { get; set; }
+        [Precision(3)]
+        public byte MaxGrade { get; set; }
+        [Precision(3)]
+        public byte MinGrade { get; set; }
         [StringLength(30)]
         [Unicode(false)]
         public string CreatedBy { get; set; } = null!;

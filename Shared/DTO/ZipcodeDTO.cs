@@ -9,13 +9,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    public class SchoolDTO
+    internal class ZipcodeDTO
     {
-        [Precision(8)]
-        public int SchoolId { get; set; }
-        [StringLength(30)]
+        [StringLength(5)]
         [Unicode(false)]
-        public string SchoolName { get; set; } = null!;
+        public string Zip { get; set; } = null!;
+        [StringLength(25)]
+        [Unicode(false)]
+        public string? City { get; set; }
+        [StringLength(2)]
+        [Unicode(false)]
+        public string? State { get; set; }
         [StringLength(30)]
         [Unicode(false)]
         public string CreatedBy { get; set; } = null!;

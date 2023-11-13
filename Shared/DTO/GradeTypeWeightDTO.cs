@@ -9,13 +9,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    public class SchoolDTO
+    internal class GradeTypeWeightDTO
     {
         [Precision(8)]
         public int SchoolId { get; set; }
-        [StringLength(30)]
+        [Precision(8)]
+        public int SectionId { get; set; }
+        [StringLength(2)]
         [Unicode(false)]
-        public string SchoolName { get; set; } = null!;
+        public string GradeTypeCode { get; set; } = null!;
+        [Precision(3)]
+        public byte NumberPerSection { get; set; }
+        [Precision(3)]
+        public byte PercentOfFinalGrade { get; set; }
+        [Precision(1)]
+        public bool DropLowest { get; set; }
         [StringLength(30)]
         [Unicode(false)]
         public string CreatedBy { get; set; } = null!;

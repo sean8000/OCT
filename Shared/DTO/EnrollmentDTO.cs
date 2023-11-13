@@ -7,15 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace OCTOBER.Shared.DTO
 {
-    public class SchoolDTO
+    internal class EnrollmentDTO
     {
         [Precision(8)]
-        public int SchoolId { get; set; }
-        [StringLength(30)]
-        [Unicode(false)]
-        public string SchoolName { get; set; } = null!;
+        public int StudentId { get; set; }
+        [Precision(8)]
+        public int SectionId { get; set; }
+        public DateTime EnrollDate { get; set; }
+        [Precision(3)]
+        public byte? FinalGrade { get; set; }
         [StringLength(30)]
         [Unicode(false)]
         public string CreatedBy { get; set; } = null!;
@@ -24,5 +27,7 @@ namespace OCTOBER.Shared.DTO
         [Unicode(false)]
         public string ModifiedBy { get; set; } = null!;
         public DateTime ModifiedDate { get; set; }
+        [Precision(8)]
+        public int SchoolId { get; set; }
     }
 }
