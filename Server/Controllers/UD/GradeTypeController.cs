@@ -95,7 +95,7 @@ namespace OCTOBER.Server.Controllers.UD
         }
 
         [HttpGet]
-        [Route("Get/{SchoolID}/{GradeTypeCode}")]
+        [Route("Get/{SchoolId}/{GradeTypeCode}")]
         public async Task<IActionResult> Get(int SchoolID, string GradeTypeCode)
         {
             try

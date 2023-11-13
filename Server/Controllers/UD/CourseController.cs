@@ -32,7 +32,7 @@ namespace OCTOBER.Server.Controllers.UD
 
 
         [HttpGet]
-        [Route("Get/{SchoolID}/{CourseNo}")]
+        [Route("Get/{SchoolId}/{CourseNo}")]
         //  Route for this is....  <URL>/api/Course/Get/10
         public async Task<IActionResult> Get(int SchoolID, int CourseNo)
         {
