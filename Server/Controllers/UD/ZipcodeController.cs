@@ -29,29 +29,162 @@ namespace OCTOBER.Server.Controllers.UD
         {
         }
 
+        [HttpDelete]
+        [Route("Delete/{Zip}")]
+        public async Task<IActionResult> Delete (string Zip)
+        {
+            try
+            {
+                await _context.Database.BeginTransactionAsync();
+
+                var itm = await _context.Zipcodes.Where(x => x.Zip == Zip).FirstOrDefaultAsync();
+
+                if (itm != null)
+                {
+                    _context.Zipcodes.Remove(itm);
+                }
+                await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return Ok();
+            }
+            catch (Exception Dex)
+            {
+                await _context.Database.RollbackTransactionAsync();
+                //List<OraError> DBErrors = ErrorHandling.TryDecodeDbUpdateException(Dex, _OraTranslateMsgs);
+                return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
+            }
+        }
         public Task<IActionResult> Delete(int KeyVal)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> Get()
+        [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> Get()
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Database.BeginTransactionAsync();
+
+                var result = await _context.Zipcodes.Select(sp => new ZipcodeDTO
+                {
+                    CreatedDate = sp.CreatedDate,
+                    ModifiedDate = sp.ModifiedDate,
+                    ModifiedBy = sp.ModifiedBy,
+                    State = sp.State,
+                    Zip = sp.Zip,
+                    City = sp.City,
+                    CreatedBy = sp.CreatedBy
+                })
+                .ToListAsync();
+                await _context.Database.RollbackTransactionAsync();
+                return Ok(result);
+            }
+            catch (Exception Dex)
+            {
+                await _context.Database.RollbackTransactionAsync();
+                //List<OraError> DBErrors = ErrorHandling.TryDecodeDbUpdateException(Dex, _OraTranslateMsgs);
+                return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
+            }
+        }
+        public async Task<IActionResult> Get(int Zip)
+        { throw new NotImplementedException();
         }
 
-        public Task<IActionResult> Get(int KeyVal)
+        [HttpGet]
+        [Route("Get/{Zip}")]
+        public async Task<IActionResult> Get(string Zip)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Database.BeginTransactionAsync();
+
+                ZipcodeDTO? result = await _context
+                    .Zipcodes
+                    .Where(x => x.Zip == Zip)
+                     .Select(sp => new ZipcodeDTO
+                     {
+                          CreatedDate = sp.CreatedDate,
+                           ModifiedDate = sp.ModifiedDate,
+                            ModifiedBy = sp.ModifiedBy,
+                              State = sp.State,
+                               Zip = Zip,
+                                City = sp.City,
+                                 CreatedBy = sp.CreatedBy
+                     })
+                .SingleOrDefaultAsync();
+
+                await _context.Database.RollbackTransactionAsync();
+                return Ok(result);
+            }
+            catch (Exception Dex)
+            {
+                await _context.Database.RollbackTransactionAsync();
+                //List<OraError> DBErrors = ErrorHandling.TryDecodeDbUpdateException(Dex, _OraTranslateMsgs);
+                return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
+            }
         }
 
-        public Task<IActionResult> Post([FromBody] ZipcodeDTO _T)
+        [HttpPost]
+        [Route("Post")]
+        public async Task<IActionResult> Post([FromBody] ZipcodeDTO _T)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Database.BeginTransactionAsync();
+
+                var itm = await _context.Zipcodes.Where(x => x.Zip == _T.Zip).FirstOrDefaultAsync();
+
+                if (itm == null)
+                {
+                    Zipcode c = new Zipcode
+                    {
+                        State = _T.State,
+                        Zip = _T.Zip,
+                        City = _T.City,
+                    };
+                    _context.Zipcodes.Add(c);
+                    await _context.SaveChangesAsync();
+                    await _context.Database.CommitTransactionAsync();
+                }
+                return Ok();
+            }
+            catch (Exception Dex)
+            {
+                await _context.Database.RollbackTransactionAsync();
+                //List<OraError> DBErrors = ErrorHandling.TryDecodeDbUpdateException(Dex, _OraTranslateMsgs);
+                return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
+            }
         }
 
-        public Task<IActionResult> Put([FromBody] ZipcodeDTO _T)
+        [HttpPut]
+        [Route("Put")]
+        public async Task<IActionResult> Put([FromBody] ZipcodeDTO _T)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Database.BeginTransactionAsync();
+
+                var itm = await _context.Zipcodes.Where(x => x.Zip == _T.Zip).FirstOrDefaultAsync();
+
+                        itm.State = _T.State;
+                        itm.Zip = _T.Zip;
+                        itm.City = _T.City;
+
+                _context.Zipcodes.Update(itm);
+                await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
+
+                return Ok();
+            }
+            catch (Exception Dex)
+            {
+                await _context.Database.RollbackTransactionAsync();
+                //List<OraError> DBErrors = ErrorHandling.TryDecodeDbUpdateException(Dex, _OraTranslateMsgs);
+                return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
+            }
         }
     }
 }
