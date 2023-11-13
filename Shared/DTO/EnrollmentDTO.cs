@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    internal class EnrollmentDTO
+    public class EnrollmentDTO
     {
         [Precision(8)]
         public int StudentId { get; set; }

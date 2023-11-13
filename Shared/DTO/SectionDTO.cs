@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    internal class SectionDTO
+    public class SectionDTO
     {
         [Precision(8)]
         public int SectionId { get; set; }

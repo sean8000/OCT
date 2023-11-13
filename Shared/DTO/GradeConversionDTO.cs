@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OCTOBER.Shared.DTO
 {
-    internal class GradeConversionDTO
+    public class GradeConversionDTO
     {
         [Precision(8)]
         public int SchoolId { get; set; }
