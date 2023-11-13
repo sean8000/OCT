@@ -190,7 +190,7 @@ namespace OCTOBER.Server.Controllers.UD
 
                 var itm = await _context.Sections.Where(x => x.CourseNo == _T.SectionId).FirstOrDefaultAsync();
 
-                itm.SchoolId = _T.SchoolId,
+                        itm.SchoolId = _T.SchoolId;
                         itm.SectionId = _T.SectionId;
                         itm.Capacity = _T.Capacity;
                         itm.CourseNo = _T.CourseNo;
