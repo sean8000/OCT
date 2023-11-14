@@ -54,6 +54,12 @@ namespace OCTOBER.Server.Controllers.UD
                 return StatusCode(StatusCodes.Status417ExpectationFailed, "An Error has occurred");
             }
         }
+
+        public Task<IActionResult> Delete(int KeyVal)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get()
